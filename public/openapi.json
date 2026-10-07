@@ -1,0 +1,1096 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Test Playground API",
+    "version": "1.0.0",
+    "description": "Backend for the Test Playground test target. All data is namespaced with ?ns= so parallel runs never collide. Seeded test users: admin@example.com, approver@example.com, viewer@example.com (password Playground!1)."
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com/api",
+      "description": "Replace with your deployed backend URL"
+    }
+  ],
+  "tags": [
+    {
+      "name": "system"
+    },
+    {
+      "name": "records"
+    },
+    {
+      "name": "state"
+    },
+    {
+      "name": "inbox"
+    },
+    {
+      "name": "testing"
+    },
+    {
+      "name": "auth"
+    },
+    {
+      "name": "customers"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "operationId": "health",
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                },
+                "example": {
+                  "ok": true,
+                  "version": "1.0.0"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/records": {
+      "get": {
+        "tags": [
+          "records"
+        ],
+        "operationId": "listRecords",
+        "summary": "List records of a kind",
+        "parameters": [
+          {
+            "name": "ns",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "default"
+            },
+            "description": "Namespace; isolates parallel runs"
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "item"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Records",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Record"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "records"
+        ],
+        "operationId": "createRecord",
+        "summary": "Create a record (JSON body = data)",
+        "parameters": [
+          {
+            "name": "ns",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "default"
+            },
+            "description": "Namespace; isolates parallel runs"
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "item"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "example": {
+                "title": "First record"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Record"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Record"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/records/{id}": {
+      "patch": {
+        "tags": [
+          "records"
+        ],
+        "operationId": "updateRecord",
+        "summary": "Merge data into a record",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ns",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "default"
+            },
+            "description": "Namespace; isolates parallel runs"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "example": {
+                "title": "Renamed"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Record"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "records"
+        ],
+        "operationId": "deleteRecord",
+        "summary": "Delete a record",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ns",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "default"
+            },
+            "description": "Namespace; isolates parallel runs"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/state": {
+      "get": {
+        "tags": [
+          "state"
+        ],
+        "operationId": "getState",
+        "summary": "Observable page state (all pages when page is omitted)",
+        "parameters": [
+          {
+            "name": "ns",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "default"
+            },
+            "description": "Namespace; isolates parallel runs"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "/steps/click"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "State",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "clicks": {
+                    "primary": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "state"
+        ],
+        "operationId": "saveState",
+        "summary": "Save observable page state",
+        "parameters": [
+          {
+            "name": "ns",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "default"
+            },
+            "description": "Namespace; isolates parallel runs"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "/steps/click"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "example": {
+                "clicks": {
+                  "primary": 1
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/config": {
+      "get": {
+        "tags": [
+          "state"
+        ],
+        "operationId": "getConfig",
+        "summary": "Server-side drift override for a namespace",
+        "parameters": [
+          {
+            "name": "ns",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "default"
+            },
+            "description": "Namespace; isolates parallel runs"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Override",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigOverride"
+                },
+                "example": {
+                  "variant": "b"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "state"
+        ],
+        "operationId": "setConfig",
+        "summary": "Set the drift override",
+        "parameters": [
+          {
+            "name": "ns",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "default"
+            },
+            "description": "Namespace; isolates parallel runs"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfigOverride"
+              },
+              "example": {
+                "variant": "b",
+                "unstableIds": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reset": {
+      "post": {
+        "tags": [
+          "system"
+        ],
+        "operationId": "reset",
+        "summary": "Delete everything for a namespace",
+        "parameters": [
+          {
+            "name": "ns",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "default"
+            },
+            "description": "Namespace; isolates parallel runs"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Report",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "records": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "records": 3
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inbox": {
+      "get": {
+        "tags": [
+          "inbox"
+        ],
+        "operationId": "inbox",
+        "summary": "Mock inbox for a namespace",
+        "parameters": [
+          {
+            "name": "ns",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "default"
+            },
+            "description": "Namespace; isolates parallel runs"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Email"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inbox/send": {
+      "post": {
+        "tags": [
+          "inbox"
+        ],
+        "operationId": "sendEmail",
+        "summary": "Send a mock email (real delivery only when the server has an email key)",
+        "parameters": [
+          {
+            "name": "ns",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "default"
+            },
+            "description": "Namespace; isolates parallel runs"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailInput"
+              },
+              "example": {
+                "to": "ada@example.com",
+                "subject": "Hello",
+                "body": "Test message"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "delivered": {
+                      "type": "string",
+                      "enum": [
+                        "mock",
+                        "real"
+                      ]
+                    }
+                  }
+                },
+                "example": {
+                  "delivered": "mock"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basic": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "basicAuth",
+        "summary": "HTTP Basic Auth (tester / playground)",
+        "security": [
+          {
+            "basic": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authenticated",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Authenticated as tester"
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or wrong credentials"
+          }
+        }
+      }
+    },
+    "/slow": {
+      "get": {
+        "tags": [
+          "testing"
+        ],
+        "operationId": "slow",
+        "summary": "Responds after ms milliseconds (max 15000)",
+        "parameters": [
+          {
+            "name": "ms",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 3000,
+              "maximum": 15000
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Done",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "waitedMs": 3000
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/status/{code}": {
+      "get": {
+        "tags": [
+          "testing"
+        ],
+        "operationId": "status",
+        "summary": "Responds with the given HTTP status and a JSON body",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 500
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "The requested status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "status": 500
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/echo": {
+      "post": {
+        "tags": [
+          "testing"
+        ],
+        "operationId": "echo",
+        "summary": "Echoes the JSON body, a subset of headers and the query",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "example": {
+                "hello": "world"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Echo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "body": {},
+                    "headers": {
+                      "type": "object"
+                    },
+                    "query": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers": {
+      "get": {
+        "tags": [
+          "customers"
+        ],
+        "operationId": "listCustomers",
+        "summary": "Seeded customers",
+        "responses": {
+          "200": {
+            "description": "Customers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Customer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{id}": {
+      "get": {
+        "tags": [
+          "customers"
+        ],
+        "operationId": "getCustomer",
+        "summary": "One seeded customer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Customer"
+                },
+                "example": {
+                  "id": 1,
+                  "name": "Ada Lovelace",
+                  "email": "ada@example.com",
+                  "plan": "enterprise",
+                  "country": "uk"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "login",
+        "summary": "Exchange a seeded user's credentials for a token",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "username",
+                  "password"
+                ],
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "username": "viewer@example.com",
+                "password": "Playground!1"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "operationId": "me",
+        "summary": "Current user for a bearer token",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "email": "viewer@example.com",
+                  "name": "Alan Viewer",
+                  "role": "viewer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi.json": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "operationId": "openapi",
+        "summary": "This OpenAPI document",
+        "responses": {
+          "200": {
+            "description": "Spec",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "basic": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "Health": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "Record": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ConfigOverride": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "variant": {
+            "type": "string",
+            "enum": [
+              "a",
+              "b"
+            ]
+          },
+          "unstableIds": {
+            "type": "boolean"
+          },
+          "unstableClasses": {
+            "type": "boolean"
+          },
+          "duplicateLabels": {
+            "type": "boolean"
+          },
+          "renderDelay": {
+            "type": "integer"
+          }
+        }
+      },
+      "Email": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "EmailInput": {
+        "type": "object",
+        "required": [
+          "to",
+          "subject",
+          "body"
+        ],
+        "properties": {
+          "to": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "plan": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "approver",
+              "viewer"
+            ]
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

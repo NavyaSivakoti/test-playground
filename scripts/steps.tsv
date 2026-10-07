@@ -1,0 +1,162 @@
+1	waitUntilPageloadIsCompleted	Wait until the current page is loaded completely
+2	restApi	REST_API: #{method} - #{title}
+5	storeElementTextInVariable	Store the text of #{label} in a variable name #{test-data}
+11	storeCurrentURL	Store URL of the current page in a variable #{test-data}
+12	switchToWindowByTitle	Switch to the window titled #{test-data}
+13	clear	Clear the value displayed in the #{label} field
+14	clear	Clear the text displayed in the #{label} field
+22	rightClick	Right click on the element #{label}
+23	mouseOver	Mouseover on #{label}
+25	storeValue	Store value displayed in #{label} in a variable #{test-data}
+26	click	Click on #{label}
+27	doubleClick	Double click on #{label}
+30	check	Check the checkbox #{label}
+33	verifyCurrentURL	Verify that the URL of current page is #{test-data}
+34	clickAndSwitchtoNewWindow	Click on #{element} to open in a new window and switch to the new window
+35	pressEnter	Press Enter/Return Key
+42	newTab	Open a new tab
+54	pressEscape	Press Esc Key
+55	pressShiftdelete	Press Shift+Delete Keys
+66	verifyAttributeContains	Verify that the #{label} contains value #{test-data} for #{attribute}
+67	storeAllCookies	Store all cookies in variable #{test-data}
+68	storeCookieNamed	Store cookie named #{test-data} in variable @{attribute}
+70	enter	Enter #{test-data} in the #{label} field
+101	verifyClickable	Verify that the #{element} button is clickable
+103	verifyAlertAbsent	Verify that the Alert is not present
+105	verifyTextContains	Verify that the #{label} text contains #{test-data}
+110	verifyAlertMessage	Verify that an Alert with notification #{test-data} is displayed
+114	verifyValueNotEmpty	Verify that the #{label} has non-empty value
+115	waitUntilAllImagesAreLoaded	Wait until all images are loaded in the current page
+116	think	Wait for #{test-data} seconds
+123	waitUntilPageTitleIs	Wait until the current page title changes to #{test-data}
+127	storeTitle	Store the title of current page in a variable #{test-data}
+130	storeText	Store text from #{label} in a variable #{test-data}
+131	waitUntilCurrentURLContains	Wait until the current page has url containing #{test-data}
+132	verifyValue	Verify that the #{label} inputbox has value #{test-data}
+138	verifyText	Verify that the #{label} displays text #{test-data}
+141	deleteCookie	Delete cookie with name #{test-data}
+143	deleteAllCookies	Delete all cookies from the current session
+145	closeCurrentWindow	Close the current window
+147	acceptAlert	Click OK button in the alert
+148	dismissAlert	Click on Cancel button in the alert
+154	clickIfPresent	Click on #{label} if Present
+156	verifyTitleContains	Verify that the current page title contains #{test-data}
+158	updateParameterWithElementAttribute	Update parameter #{test-data} with value of @{attribute} attribute from the element #{label}
+161	pressTab	Press Tab Key
+163	waitUntilCurrentURLIs	Wait until the current page URL changes to #{test-data}
+168	verifyTextAbsent	Verify that the current page does not displays text #{test-data}
+170	deleteLocalStorage	Delete all local storage cookies from the current session
+172	activeWindow	Close all windows except the current window
+179	verifyTextNotEmpty	Verify that element #{label} has non-empty text
+184	verifyElementVisible	Verify that the #{label} is present (available/displayed/etc.)
+185	waitUntilElementIsTestData	Wait until the #{label} is (visible/selected/enabled/clickable/etc.)
+186	scroll	Scroll (up to/down to) the element #{label} into view
+190	verifyElementEnabledWhile	While element #{label} is enabled
+191	verifyElementVisibleWhile	While element #{label} is visible on the page
+192	BrowserBackButtons	Click on the Back button in the browser
+320	verifyTitle	Verify that the current page title is #{test-data}
+348	waitUntilTextIsDisplayed	Wait until the text #{label} is present on the current page
+372	navigateTo	Visit #{test-data}
+410	verifyAlertPresent	Verify that the current page displays an Alert
+417	selectMultipleOptionByValue	Select multiple options by value #{test-data} in the list #{label}
+425	navigateToUrl	Navigate to #{test-data}
+430	selectOptionByValue	Select option by value #{test-data} in the list #{label}
+432	selectOptionByVisibleText	Select option by text #{test-data} in the list #{label}
+433	selectOptionByIndex	Select option by index #{test-data} in the list #{label}
+434	selectOptionContainsVisibleText	Select option by text containing #{test-data} in the list #{element}
+437	selectMultipleOptionByVisibleText	Select multiple options by text #{test-data} in the list #{label}
+438	selectMultipleOptionByIndex	Select multiple options by index #{test-data} in the list #{label}
+439	selectButtonGroupIndex	Select element by index #{test-data} in the button group #{label}
+440	selectButtonGroup	Select element by text containing #{test-data} in the button group #{label}
+441	selectRadioButtonGroup	Select element by text #{test-data} in the button group #{label}
+442	selectRadioButtonGroup	Select element by label #{test-data} in the button group #{label}
+450	unCheck	Uncheck the checkbox #{label}
+451	checkRadio	Check the radio button #{label}
+452	custom_step_code	Custom step: #{description}
+455	fullPageScreenShotWithURL	Take full page screenshot with URL
+456	pressKey	Press #{test-data} Key
+464	verifyLinkOpensNewWindow	Verify that the link #{element} opens in a new window or tab
+465	verifyClassName	Verify that the #{label} has class name #{test-data}
+467	verifyTextPresent	Verify that the current page displays text #{test-data}
+469	emtyElement	Element #{label} is empty
+477	verifyCSSValue	Verify that the #{label} displays #{test-data} for css property name @{attribute}
+478	verifyAttribute	Verify that the #{label} has value #{test-data} for #{attribute}
+487	storeTagName	Store tag name of #{label} in a variable #{test-data}
+491	switchToFrameUsingName	Switch to the frame named #{test-data}
+495	verifyTitleEquals	Verify that the current page title equals to #{test-data}
+499	updateParameterWithElementText	Update parameter #{test-data} with text from the element #{label}
+518	selectOptionContainsValue	Select option by value containing #{test-data} in the list #{label}
+519	verifyOptionIsNotPresentInDropdown	Verify that the option #{test-data} is not present in dropdown #{label}
+523	scroll_bottom	Scroll to bottom
+529	verifyValueEmpty	Verify that the #{label} has an empty value
+532	authentication	Authentication with: #{username} and #{password}
+535	waitUntilNetworkidle	Wait until the current page network idle
+537	setPageLoadStateDomContentloaded	Set your web page load state as a domcontent loaded
+538	setPageLoadStateNetworkidle	Set your web page load state as a network idle
+539	socialLogin	Login social account
+540	uploadExtension	Upload the extension
+541	switchTab	Switch into #{test-data}th tab
+542	downloadExtension	Download the extension from URL #{extension_url}
+543	socialLogin2FA	Login social account and verification code from an authenticator app
+544	clickToOpenPopupPage	Click #{label} lcoator to open link in popup
+545	verifyElementIsVisibleOrNotNull	Verify that the #{label} is visible or not null.
+546	getOTPFromPhoneNumber	Get OTP from the phone number
+547	uploadFileFromURL	Upload the file at #{element} from URL #{file_url} with name #{file_name}
+548	verifyElementIsNotVisible	Verify that the #{label} is not present/displayed.
+549	verifyElementIsDisable	Verify that the #{label} is disabled or not clickable.
+550	extractValueByRegExFromEmail	Extract the value from the #{email_address} email using the regular expression #{regular_expression}
+551	createRandomEmail	Create email and store into the #{variable_name} variable name
+552	textElementBaseOnPosition	Click on the #{target_label} located to the #{position} the #{source_label}
+553	verifyElementNotVisibleWhile	While element #{label} is not visible on the page
+554	verifyTextVisibleWhile	While text #{label} is visible on the page
+556	scrollGesture	Scroll using gesture on #{label}
+559	dragAndDrop	Drag from #{source_label} to #{target_label}
+560	note	Note: #{test-data}
+561	verifyEqualsValues	Verify the #{source_value} equals to #{target_value}
+562	upload_session	Upload Session
+563	restore_session	Restore Session
+564	waitUntilTextIsDisplayedIF	Check the text #{label} is present on the current page
+565	waitUntilDomContentLoaded	Wait until the current page domcontent loaded
+566	storeInputText	Store value from #{label} inputbox in a variable #{test-data}
+567	generateUniqueString	Generate a #{string_length} character string and store it in the #{variable_name} variable
+568	ai_text_actions	AI Agent #{ai_task}
+569	verifyTextBoxValueNotEqualsWhile	While inputbox #{label} doesn't contain #{test-data} value
+570	verifyTextBoxValueEqualsWhile	While inputbox #{label} does contain #{test-data} value
+572	fill	Fill #{test-data} in the #{label} field
+573	ai_ask	AI Ask: #{query}
+574	verifyEqualsRuntime	Verify that the #{source_value} equals #{target_value}
+575	arrayPush	Add #{test-data} value into the #{source_array} array
+576	generate_heatmap	Generate heatmap
+577	verifyValueNotEqual	Verify that the #{label} inputbox has not value #{test-data}
+580	downloadByClick	Download file by click on #{label}
+581	ai_document_ask	AI Document Ask: #{description}
+582	verifyElementDisabledWhile	While element #{label} is disabled
+583	ai_verify	AI Verification: #{query}
+584	scroll_one_bottom	Scroll one screen bottom
+585	scroll_one_up	Scroll one screen up
+586	ai_verify_if	AI Verification: #{description}
+587	extract_sessionstorage_key	Gets the session storage value for key #{key} and saves it to #{storeVariableName}
+588	extract_localstorage_key	Gets the local storage value for key #{key} and saves it to #{storeVariableName}
+589	clickAndVerify	Click on #{label} and verify that the #{verificationlabel} is visible within #{MaxWaitTIme} seconds.
+590	verifyElementIsenable	Verify that the #{label} is enabled or clickable.
+591	BrowserForwardButtons	Click on the Forward button in the browser
+592	BrowserRefreshButtons	Click on the Refresh button in the browser
+593	scrollatelement	Scroll #{label} at the #{verificationlabel} at the screen.
+594	ai_verify_if	AI Verification: #{description}
+595	extract_api_value	Gets the value of api #{name} and saves it to #{storeVariableName}
+596	clickcopy	Click on #{label} and store copied value on #{variable}
+597	wait_untill_enabled	Wait untill #{label} element is enabled
+598	M2FA	Login enterprise account and verification code from an authenticator app
+634	M2FA2	Login enterprise account
+637	addCookie	Add cookies
+638	set_camerapath	Set camerafile and restore session
+641	databaseverification	Database Verification
+642	scrollHorizontally	scroll horizontally
+644	generateDocument	Generate Document
+648	TOTP	Get TOTP from #{issuer}
+669	storevariable	Store #{value} in env/global variable #{name}
+671	solveCaptchaByType	Solve the #{captchatype} captcha on the page
+672	uploadFileAndVerifyToast	Upload the file at #{element} from URL #{file_url} with name #{file_name} and verify that the toaster #{verificationlabel} is visible within #{MaxWaitTIme} seconds.
+673	pressKeyOnElement	Press the #{test-data} key #{repeat} time(s) in the #{label} field
+674	clearChipField	Clear all selected values (chips/tags) from the #{label} field
+675	pressBackspaceOnElement	Press Backspace #{repeat} time(s) in the #{label} field

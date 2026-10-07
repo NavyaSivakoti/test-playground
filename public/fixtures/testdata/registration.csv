@@ -1,0 +1,7 @@
+case,firstName,lastName,email,password,confirmPassword,phone,acceptTerms,expectedMessage
+valid-1,Ada,Lovelace,ada.l@example.com,Str0ng!Pass,Str0ng!Pass,+44 20 7946 0001,true,Account created
+valid-2,Grace,Hopper,grace.h@example.com,Navy#1906pw,Navy#1906pw,+1 202 555 0143,true,Account created
+bad-email,Alan,Turing,alan.example.com,Enigma!1936,Enigma!1936,+44 20 7946 0002,true,Enter a valid email address
+weak-pass,Katherine,Johnson,kj@example.com,abc,abc,+1 202 555 0199,true,Password must be at least 8 characters
+mismatch,Radia,Perlman,rp@example.com,Spanning#Tree1,Spanning#Tree2,+1 202 555 0111,true,Passwords do not match
+no-terms,Barbara,Liskov,bl@example.com,Substitut!on1,Substitut!on1,+1 202 555 0177,false,You must accept the terms

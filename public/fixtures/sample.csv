@@ -1,0 +1,11 @@
+name,email,role
+Ada Lovelace,ada@example.com,admin
+Grace Hopper,grace@example.com,approver
+Alan Turing,alan@example.com,viewer
+Katherine Johnson,katherine@example.com,viewer
+Linus Example,linus@example.com,approver
+Margaret Hamilton,margaret@example.com,admin
+Tim Sample,tim@example.com,viewer
+Barbara Liskov,barbara@example.com,approver
+Dennis Test,dennis@example.com,viewer
+Radia Perlman,radia@example.com,viewer
